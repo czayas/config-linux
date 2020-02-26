@@ -12,9 +12,9 @@ listar () {
 contiene () {
     # Retorna verdadero si lista contiene elemento indicado como parámetro
     # Ejemplo: lista=(A B); [[ ${lista[@]} =~ A ]] && echo OK || echo NO
-  local item
-  for item in "${@:2}"; do [[ "$item" == "$1" ]] && return 0; done
-  return 1
+    local item
+    for item in "${@:2}"; do [[ "$item" == "$1" ]] && return 0; done
+    return 1
 }
 
 if [ "$1" != "" ]; then
