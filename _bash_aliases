@@ -1,0 +1,43 @@
+alias ls='ls --color -h --group-directories-first'
+alias loc="locate -i"
+alias bc="bc -q"
+alias ant='python2 ~/Dropbox/Scripts/ant.py'
+alias discos='df -h | grep ^/dev/'
+alias up='packer -Syu --noconfirm --noedit'
+alias pipup='pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U'
+alias yt='youtube-dl --no-check-certificate'
+alias mp3='youtube-dl --extract-audio --audio-format mp3'
+alias 64='x64 -VICIIfull'
+alias 128='x128 -80col -VDCfull'
+alias whatsapp='ffmpeg -c:v libx264 -profile:v baseline -level 3.0 -pix_fmt yuv420p out.mp4 -i'
+
+ext () {
+	if [ $# -le 0 ]
+	then
+		echo "Sintaxis: ext extension texto"
+	elif [ $# -eq 1 ]
+	then
+		extension=$1
+		texto=$1
+	else
+		extension=$1
+		texto=$2
+	fi
+	if [ $# -ne 0 ]
+	then
+		locate -i $texto | grep -i ".${extension}$" | sort
+	fi
+}
+
+calc () {
+    bc -l <<< "$@"
+}
+
+get () {
+    if [ $# -gt 0 ] && [ $# -lt 3 ]
+    then
+        wget -r -l1 -H -t1 -nd -N -np -A.%1 -erobots=off %2
+    else
+        echo Sintaxis: get ext url
+    fi
+}

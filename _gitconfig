@@ -1,0 +1,7 @@
+[user]
+	name = Carlos Zayas
+	email = czayas@gmail.com
+[core]
+	editor = micro
+[merge]
+	tool = vimdiff

@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+# Cambia prefijo de nombres de archivos (primer caracter)
+# de "dot" (punto) a "underscore" (subrayado) y viceversa
+# Copyleft 2020, Carlos Zayas <czayas en gmail>
+
+listar () {
+    # Lista archivos del directorio (carpeta) actual (pwd) con prefijo indicado
+    find . -mindepth 1 -maxdepth 1 -name "$1*" -printf "%P\n"
+}
+
+contiene () {
+    # Retorna verdadero si lista contiene elemento indicado como parámetro
+    # Ejemplo: lista=(A B); [[ ${lista[@]} =~ A ]] && echo OK || echo NO
+  local item
+  for item in "${@:2}"; do [[ "$item" == "$1" ]] && return 0; done
+  return 1
+}
+
+if [ "$1" != "" ]; then
+    lista=("." "_")
+    if contiene "$1" "${lista[@]}"; then
+        [[ $1 == . ]] && prefijo=_ || prefijo=.
+        listar $prefijo | while read -r nombre; do
+            comando="mv $nombre $1${nombre:1}"
+            [[ "$2" == "--test" ]] && echo $comando || eval $comando
+        done
+    fi
+else
+    echo "Sintaxis: $0 [.|_] [--test]"
+fi
